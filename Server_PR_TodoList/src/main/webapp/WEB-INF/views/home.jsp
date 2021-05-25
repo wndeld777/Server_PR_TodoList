@@ -7,19 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${rootPath}/static/css/home.css?ver2021-05-25-001"
+	rel="stylesheet" />
 <style>
-	*{
-		box-sizing:border-box;
-	}
-	td,th{
-		border : 1px solid green;
-		padding : 5px auto;
-		width:10%;
-		text-align:center;
-	}
-	table{
-		margin-left:250px;
-	}
+	
+	
+	
 	tr:hover{
 		cursor: pointer;
 		background-color: #ddd;
@@ -27,17 +20,9 @@
 	td{
 		color:blue;
 	}
-	h1,form{
-		width : 80%;
-		margin:10px auto;
-	}
-	h1{
-		color:black;
-		padding:1.2rem;
-		text-align:center;
-		border-radius: 10px;
-	}
 	form{
+		margin:10px auto;
+		width : 80%;
 		border:1px solid green;
 		border-radius: 20px;
 		padding : 10px;
@@ -63,17 +48,27 @@
 		border:0;
 		border-radius: 10px;
 		cursor: pointer;
+		margin-left:320px;
 	}
 
 	button:hover{
-		/*
-		 x-offset y-offset blue spread color 
-		 
-		*/
 		box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
 	}
 	
 </style>
+<script>
+	document.addEventListener("DOMContentLoaded",function(){
+		document.querySelector("table#tolist").addEventListener("click",function(ev){
+			let tag_name = ev.target.tagName;
+			if(tag_name = "TD"){
+				let to_seq = ev.target.closest("TR").dataset.seq
+				document.location.href="${rootPath}/todo/view?to_seq=" + to_seq;
+			}
+			
+		})
+	})
+
+</script>
 </head>
 <body>
 	<h1>TO DO List</h1>
@@ -96,11 +91,10 @@
 			
 		</div>
 		<button>추가하기</button>
-		<a href="${pageContext.request.contextPath }/todo/view">삭제하기</a>
 	</form>
 	
 	
-	<table>
+	<table id="tolist">
 		<tr>
 			<th>No.</th>
 			<th>할일</th>

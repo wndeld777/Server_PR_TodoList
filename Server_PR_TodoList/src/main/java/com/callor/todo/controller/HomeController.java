@@ -41,7 +41,7 @@ public class HomeController extends HttpServlet {
 		todoVO.setTo_date(sd.format(date));
 		todoVO.setTo_time(st.format(date));
 		req.setAttribute("TODO", todoVO);
-		
+
 		req.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(req, resp);
 
 	}
@@ -50,7 +50,7 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		
+
 		String subPath = req.getPathInfo();
 
 		String strdate = req.getParameter(DBInfo.to_date);
@@ -59,17 +59,15 @@ public class HomeController extends HttpServlet {
 		String strplace = req.getParameter(DBInfo.to_place);
 
 		TodoVO todoVO = new TodoVO();
-		
+
 		todoVO.setTo_date(strdate);
 		todoVO.setTo_time(strtime);
 		todoVO.setTo_work(strwork);
 		todoVO.setTo_place(strplace);
-		
+
 		System.out.println(todoVO.toString());
-		
+
 		tlservice.insert(todoVO);
 		resp.sendRedirect("/todo/");
-
 	}
-
 }

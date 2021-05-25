@@ -44,6 +44,7 @@ public class TodoListServiceImplV1 implements TodoListService{
 	public List<TodoVO> selectAll() {
 		// TODO Auto-generated method stub
 		String sql = " SELECT * FROM tbl_todoList ";
+		sql += " ORDER BY to_date DESC, to_time DESC ";
 		
 		PreparedStatement pStr = null;
 		try {
@@ -108,6 +109,28 @@ public class TodoListServiceImplV1 implements TodoListService{
 	@Override
 	public Integer update(TodoVO todoVO) {
 		// TODO Auto-generated method stub
+		String sql = " UPDATE tbl_todoList SET ";
+		sql += " to_date = ?, ";
+		sql += " to_time = ?, ";
+		sql += " to_work = ?, ";
+		sql += " to_place = ? ";
+		sql += " WHERE to_seq = ? ";
+		
+		PreparedStatement pStr = null;
+		try {
+			pStr = dbConn.prepareStatement(sql);
+			pStr.setString(1, todoVO.getTo_date());
+			pStr.setString(2, todoVO.getTo_time());
+			pStr.setString(3, todoVO.getTo_work());
+			pStr.setString(4, todoVO.getTo_place());
+			pStr.setLong(5, todoVO.getTo_seq());
+			
+			return pStr.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
